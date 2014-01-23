@@ -1,6 +1,6 @@
 class CreateCongressPersons < ActiveRecord::Migration
   def change
-    create_table :congress_persons do |t|
+    create_table :congresspersons do |t|
       t.string :name
       t.integer :phone
       t.integer :fax
@@ -10,7 +10,8 @@ class CreateCongressPersons < ActiveRecord::Migration
       t.string :gender
       t.datetime :birthdate
       t.string :twitter_id
-      t.in_office :boolean
+      t.boolean :in_office
+      t.string :type
 
       t.timestamps
     end
