@@ -2,14 +2,17 @@ require 'csv'
 
 class SunlightLegislatorsImporter
   def self.import(filename)
-    csv = CSV.new(File.open(filename), :headers => true)
-    csv.each do |row|
+    CSV.table(File.open(filename)).each do |row|
       row.each do |field, value|
-        # TODO: begin
-        raise NotImplementedError, "TODO: figure out what to do with this row and do it!"
-        # TODO: end
+        row[:phone] = self.scrub_pn(row[:phone])
+        row[:fax] = self.scrub_pn(row[:fax])
+        row[:in_office] = row[:in_office] == 1 ? true : false
       end
     end
+  end
+
+  def self.scrub_pn(pn)
+    pn.gsub(/\D/, '')
   end
 end
 

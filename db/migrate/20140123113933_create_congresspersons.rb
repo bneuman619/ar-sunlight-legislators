@@ -8,7 +8,7 @@ class CreateCongresspersons < ActiveRecord::Migration
       t.string :email_form
       t.string :party
       t.string :gender
-      t.datetime :birthdate
+      t.string :birthdate
       t.string :twitter_id
       t.boolean :in_office
       t.string :type
