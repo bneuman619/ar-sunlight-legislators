@@ -1,4 +1,4 @@
-class CreateCongressPersons < ActiveRecord::Migration
+class CreateCongresspersons < ActiveRecord::Migration
   def change
     create_table :congresspersons do |t|
       t.string :name
