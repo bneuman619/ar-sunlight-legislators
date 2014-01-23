@@ -2,10 +2,22 @@ require_relative '../../db/config'
 
 class CongressPerson < ActiveRecord::Base
   validates :name, :uniqueness => :true
-  validates :phone, :format => { :with => /\d{10,}/ }
-  validates :fax, :format => { :with => /\d{10,}/ }
+  validate :check_pn_fax
 
   def last_name
-    self.split(' ')[-1]
+    self.name.split(' ')[-1]
   end
+
+  def check_pn_fax
+    if bad_pn?(self.phone)
+      errors.add(:phone, "Bad phone number")
+    elsif bad_pn?(self.fax)
+      errors.add(:fax, "Bad fax")
+    end
+  end
+
+  def bad_pn?(num)
+    (num.to_s.length < 10) && num != 0
+  end
+
 end

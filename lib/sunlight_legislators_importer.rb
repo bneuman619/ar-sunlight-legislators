@@ -7,16 +7,22 @@ class SunlightLegislatorsImporter
     rows = CSV.table(File.open(filename)).each do |row|
       real_row = {}
       real_row[:name] = row[:firstname] + " " + row[:middlename] + " " + row[:lastname]
-      real_row[:state] = row[:state]
-      real_row[:phone] = self.scrub_pn(row[:phone])
-      real_row[:fax] = self.scrub_pn(row[:fax])
-      real_row[:website] = row[:website]
-      real_row[:email_form] = row[:email_form]
-      real_row[:party] = row[:party]
-      real_row[:gender] = row[:gender]
-      real_row[:birthdate] = row[:birthdate]
-      real_row[:twitter_id] = row[:twitter_id]
-      real_row[:in_office] = row[:in_office] == 1 ? true : false
+      real_row[:state] = row[:state].to_s
+      real_row[:phone] = self.scrub_pn(row[:phone]).to_i
+      real_row[:fax] = self.scrub_pn(row[:fax]).to_i
+      real_row[:website] = row[:website].to_s
+      real_row[:webform] = row[:webform].to_s
+      real_row[:party] = row[:party].to_s
+      real_row[:gender] = row[:gender].to_s
+      real_row[:birthdate] = row[:birthdate].to_s
+      real_row[:twitter_id] = row[:twitter_id].to_s
+      if row[:in_office] == 0
+        real_row[:in_office] = false
+      else
+        real_row[:in_office] = true
+      end
+    
+
       if row[:title] == "Sen"
         Senator.create(real_row)
       elsif row[:title] == "Rep"
