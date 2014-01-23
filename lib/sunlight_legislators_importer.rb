@@ -6,7 +6,7 @@ class SunlightLegislatorsImporter
   def self.import(filename)
     rows = CSV.table(File.open(filename)).each do |row|
       real_row = {}
-      real_row[:name] = row[:first_name] + " " + row[:middle_name] + " " + row[:last_name]
+      real_row[:name] = row[:firstname] + " " + row[:middlename] + " " + row[:lastname]
       real_row[:state] = row[:state]
       real_row[:phone] = self.scrub_pn(row[:phone])
       real_row[:fax] = self.scrub_pn(row[:fax])
