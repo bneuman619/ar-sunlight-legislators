@@ -1,4 +1,4 @@
 require_relative 'congressperson'
 
-class Representative < Congressperson
+class Representative < CongressPerson
 end

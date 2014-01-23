@@ -1,6 +1,6 @@
 class CreateCongresspersons < ActiveRecord::Migration
   def change
-    create_table :congresspersons do |t|
+    create_table :congress_people do |t|
       t.string :name
       t.integer :phone
       t.integer :fax
