@@ -1,12 +1,28 @@
 require 'csv'
+require_relative '../app/models/senator'
+require_relative '../app/models/representative'
 
 class SunlightLegislatorsImporter
   def self.import(filename)
-    CSV.table(File.open(filename)).each do |row|
-      row.each do |field, value|
-        row[:phone] = self.scrub_pn(row[:phone])
-        row[:fax] = self.scrub_pn(row[:fax])
-        row[:in_office] = row[:in_office] == 1 ? true : false
+    rows = CSV.table(File.open(filename)).each do |row|
+      real_row = {}
+      real_row[:first_name] = row[:first_name]
+      real_row[:middle_name] = row[:middle_name]
+      real_row[:last_name] = row[:last_name]
+      real_row[:state] = row[:state]
+      real_row[:phone] = self.scrub_pn(row[:phone])
+      real_row[:fax] = self.scrub_pn(row[:fax])
+      real_row[:website] = row[:website]
+      real_row[:email_form] = row[:email_form]
+      real_row[:party] = row[:party]
+      real_row[:gender] = row[:gender]
+      real_row[:birthdate] = row[:birthdate]
+      real_row[:twitter_id] = row[:twitter_id]
+      real_row[:in_office] = row[:in_office] == 1 ? true : false
+      if row[:title] == "Sen"
+        Senator.create(real_row)
+      elsif row[:title] == "Rep"
+        Representative.create(real_row)
       end
     end
   end
