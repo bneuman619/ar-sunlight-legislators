@@ -3,6 +3,7 @@ require_relative '../../db/config'
 class CongressPerson < ActiveRecord::Base
   validates :name, :uniqueness => :true
   validate :check_pn_fax
+  has_many :tweets
 
   def last_name
     self.name.split(' ')[-1]
